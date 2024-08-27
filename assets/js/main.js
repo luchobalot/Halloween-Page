@@ -17,6 +17,32 @@ if (navClose) {
     });
 }
 
+const navLink = document.querySelectorAll(".nav__link");
+
+// Funcion para cerrar el menu al hacer click en un link.
+function linkAction() {
+    const navMenu = document.getElementById("nav-menu");
+    navMenu.classList.remove("show-menu");
+}
+
+navLink.forEach((n) => n.addEventListener("click", linkAction)); // Se agrega un evento click a cada link.
+
+// Swiper
+const homeSwiper = new Swiper(".home-swiper", {
+    spaceBetweenn: 30, // Espacio entre las imagenes.
+    loop: "true", // Buccle infinito.
+    pagination: {
+        el: ".swiper-pagination", // Selecciona el elemento que contiene la paginacion.
+        clickable: true, // Se puede hacer click en el elemento (puntitos de abajo).
+    }
+})
+
+const newSwiper = new Swiper(".new-swiper", {
+    centerdSlides: true, // Se centra el slide.
+    
+    slidesPreview: "auto", // Se muestran todos los slides.
+})
+
 // Scroll Reveal - Propiedades de la misma libreria
 const sr = ScrollReveal ({
     origin: "top",
