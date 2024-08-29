@@ -39,9 +39,45 @@ const homeSwiper = new Swiper(".home-swiper", {
 
 const newSwiper = new Swiper(".new-swiper", {
     centerdSlides: true, // Se centra el slide.
-    
     slidesPreview: "auto", // Se muestran todos los slides.
+    loop: "true", // Buccle infinito.
+    spaceBetweenn: 16,
 })
+
+
+// Scroll up
+function scrollUp() {
+    const scrollUp = document.getElementById("scroll-up");
+    if(this.scrollY >= 460) {
+        scrollUp.classList.add("show-scroll") // Se agrega la clase show-scroll.
+    } else {
+        scrollUp.classList.remove("show-scroll") // Se remueve la clase show-scroll.
+    }
+}
+
+window.addEventListener("scroll", scrollUp);
+
+// Sections active - Ver en que sección se encuentra el usuario.
+const sections = document.querySelectorAll("section[id]");
+function scrollActive(){
+    const scrollY = window.pageYOffset;
+
+    sections.forEach(current =>{
+    
+        const sectionHeight = current.offsetHeight, // Se obtiene el alto del section.
+                sectionTop = current.offsetTop - 58, // Se  obtiene el top del section.
+                sectionId = current.getAttribute('id') // Se obtiene el id del section.
+
+        // Si el scroll del usuario es mayor al top del section y menor al top mas el alto del section, entonces se agrega la clase active-link al link del menu.
+        if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
+        }else{
+            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
+        }
+    })
+}
+
+window.addEventListener("scroll",scrollActive)
 
 // Scroll Reveal - Propiedades de la misma libreria
 const sr = ScrollReveal ({
@@ -49,7 +85,6 @@ const sr = ScrollReveal ({
     distance: "60px",
     duration: 2000, // Tiempo de duración de la animación (2seg).
     delay: 300, // Tiempo de retraso de la animación (0.3seg).
-    reset: true // Se resetea la animación cuando se hace scroll.
 })
 
 sr.reveal(`.home-swiper, .new-swiper, .newsletter_container`)
